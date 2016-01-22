@@ -781,9 +781,11 @@ fix_nated_contact_f(struct sip_msg* msg, char* str1, char* str2)
 	contact_t *c;
 	struct lump *anchor;
 	struct sip_uri uri;
+struct ip_addr *ip;
 	str hostport;
 	str params1 = {0};
 	str params2 = {0};
+int useuriport = 0;
 
 	if (get_contact_uri(msg, &uri, &c) == -1)
 		return -1;
@@ -792,6 +794,17 @@ fix_nated_contact_f(struct sip_msg* msg, char* str1, char* str2)
 		    "check your config!\n");
 		return -1;
 	}
+
+    if (((ip = str2ip(&(uri.host))) == NULL) &&
+	((ip = str2ip6(&(uri.host))) == NULL)) {
+	LM_DBG("contact uri host is not an ip address\n");
+    } else {
+	if ((ip_addr_cmp(ip, &(msg->rcv.src_ip))) && (uri.port.len > 0) && (msg->rcv.src_port != uri.port_no)) {
+	    useuriport = 1;
+        }
+    }
+
+LM_ERR("AAAAA ip_addr_cmp %d src_port %d port_no %d rcv.src_ip %s uri.ip %s\n",ip_addr_cmp(ip, &(msg->rcv.src_ip)),msg->rcv.src_port,uri.port_no,ip_addr2a(&msg->rcv.src_ip),ip_addr2a(ip));
 
 	offset = c->uri.s - msg->buf;
 	anchor = del_lump(msg, offset, c->uri.len, HDR_CONTACT_T);
@@ -817,10 +830,10 @@ fix_nated_contact_f(struct sip_msg* msg, char* str1, char* str2)
 	if(uri.maddr.len<=0) {
 		if(msg->rcv.src_ip.af==AF_INET6) {
 			len1 = snprintf(buf, len, "%s[%s]:%d%s", c->uri.s, cp,
-					msg->rcv.src_port, hostport.s + hostport.len);
+					useuriport?uri.port_no:msg->rcv.src_port, hostport.s + hostport.len);
 		} else {
 			len1 = snprintf(buf, len, "%s%s:%d%s", c->uri.s, cp,
-					msg->rcv.src_port, hostport.s + hostport.len);
+					useuriport?uri.port_no:msg->rcv.src_port, hostport.s + hostport.len);
 		}
 	} else {
 		/* skip maddr parameter - makes no sense anymore */
@@ -849,6 +862,7 @@ fix_nated_contact_f(struct sip_msg* msg, char* str1, char* str2)
 		len = len1;
 	hostport.s[0] = temp[0];
 	c->uri.s[c->uri.len] = temp[1];
+LM_ERR("BBBBBBBBBBBB buf %s\n",buf);
 	if (insert_new_lump_after(anchor, buf, len, HDR_CONTACT_T) == 0) {
 		pkg_free(buf);
 		return -1;
