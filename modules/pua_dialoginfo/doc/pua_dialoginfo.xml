@@ -41,12 +41,9 @@
 	    <editor>
 		<firstname>Phil</firstname>
 		<surname>Lavin</surname>
-		<affiliation><orgname>Synety</orgname></affiliation>
-	    </editor>
-	    <editor>
-		<firstname>Muhammad</firstname>
-		<surname>Zaka</surname>
-		<affiliation><orgname>Synety</orgname></affiliation>
+		<address>
+		    <email>phil.lavin@synety.com</email>
+		</address>
 	    </editor>
 	</authorgroup>
 	<copyright>
