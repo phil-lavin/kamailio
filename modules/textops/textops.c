@@ -665,13 +665,20 @@ static int subst_f(struct sip_msg* msg, char*  subst, char* ignored)
 	int off;
 	int ret;
 	int nmatches;
-	
+	char c;
+
 	se=(struct subst_expr*)subst;
 	begin=get_header(msg);  /* start after first line to avoid replacing
 							   the uri */
 	off=begin-msg->buf;
 	ret=-1;
-	if ((lst=subst_run(se, begin, msg, &nmatches))==0)
+
+	c = msg->buf[msg->len];
+	msg->buf[msg->len] = '\0';
+	lst=subst_run(se, begin, msg, &nmatches);
+	msg->buf[msg->len] = c;
+
+	if (lst==0)
 		goto error; /* not found */
 	for (rpl=lst; rpl; rpl=rpl->next){
 		LM_DBG("%s: replacing at offset %d [%.*s] with [%.*s]\n",
@@ -803,6 +810,7 @@ static int subst_body_f(struct sip_msg* msg, char*  subst, char* ignored)
 	int ret;
 	int nmatches;
 	str body;
+	char c;
 
 	body.s = get_body(msg);
 	if (body.s==0) {
@@ -820,7 +828,13 @@ static int subst_body_f(struct sip_msg* msg, char*  subst, char* ignored)
 	
 	off=begin-msg->buf;
 	ret=-1;
-	if ((lst=subst_run(se, begin, msg, &nmatches))==0)
+
+	c = body.s[body.len];
+	body.s[body.len] = '\0';
+	lst=subst_run(se, begin, msg, &nmatches);
+	body.s[body.len] = c;
+
+	if (lst==0)
 		goto error; /* not found */
 	for (rpl=lst; rpl; rpl=rpl->next){
 		LM_DBG("%s replacing at offset %d [%.*s] with [%.*s]\n",
