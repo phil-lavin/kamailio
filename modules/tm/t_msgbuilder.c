@@ -1604,6 +1604,8 @@ char* build_uac_req(str* method, str* headers, str* body, dlg_t* dialog, int bra
 	assert(w-buf == *len);
 #endif
 
+	memapp(w, "\0", 1);
+
 	pkg_free(via.s);
 	return buf;
 
