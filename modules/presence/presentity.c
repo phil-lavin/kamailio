@@ -691,9 +691,11 @@ int update_presentity(struct sip_msg* msg, presentity_t* presentity, str* body,
 
 			check_if_dialog(*body, &is_dialog, &dialog_id);
 
-			if (delete_presentity_if_dialog_id_exists(presentity, dialog_id) < 0) {
-				free(dialog_id);
-				goto error;
+			if (dialog_id) {
+				if (delete_presentity_if_dialog_id_exists(presentity, dialog_id) < 0) {
+					free(dialog_id);
+					goto error;
+				}
 			}
 
 			free(dialog_id);
@@ -1125,9 +1127,12 @@ done:
 		if(rules_doc->s)
 			pkg_free(rules_doc->s);
 		pkg_free(rules_doc);
+		rules_doc = NULL;
 	}
-	if(pres_uri.s)
+	if(pres_uri.s) {
 		pkg_free(pres_uri.s);
+		pres_uri.s = NULL;
+	}
 
 	if (pa_dbf.end_transaction)
 	{
@@ -1165,15 +1170,15 @@ error:
 			pkg_free(rules_doc->s);
 		pkg_free(rules_doc);
 	}
-	if(pres_uri.s)
+	if(pres_uri.s) {
 		pkg_free(pres_uri.s);
+	}
 
 	if (pa_dbf.abort_transaction)
 	{
 		if (pa_dbf.abort_transaction(pa_db) < 0)
 		{
 			LM_ERR("in abort_transaction\n");
-			goto error;
 		}
 	}
 
