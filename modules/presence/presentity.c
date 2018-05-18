@@ -691,9 +691,11 @@ int update_presentity(struct sip_msg* msg, presentity_t* presentity, str* body,
 
 			check_if_dialog(*body, &is_dialog, &dialog_id);
 
-			if (delete_presentity_if_dialog_id_exists(presentity, dialog_id) < 0) {
-				free(dialog_id);
-				goto error;
+			if (dialog_id) {
+				if (delete_presentity_if_dialog_id_exists(presentity, dialog_id) < 0) {
+					free(dialog_id);
+					goto error;
+				}
 			}
 
 			free(dialog_id);
