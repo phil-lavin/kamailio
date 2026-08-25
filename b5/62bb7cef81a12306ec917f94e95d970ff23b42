@@ -1,0 +1,25 @@
+src/modules/topos_redis/topos_redis_storage.c
+  s_1c1bae75976b86::t_6160f867e7a8cf 168
+  s_1c1bae75976b86::t_9677b75c372b9c 1371-1373
+  s_1c1bae75976b86::t_3365c5c8c51d78 281-288
+  s_1c1bae75976b86::t_5d5b3ce3545e32 1426-1451
+  s_1c1bae75976b86::t_39ab82befc6e87 1370
+  s_1c1bae75976b86::t_a716c0bbf0857a 1374-1376
+  s_1c1bae75976b86::t_c602b1e126f237 1452-1454
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "b562bb7cef81a12306ec917f94e95d970ff23b42",
+  "prompts": {},
+  "sessions": {
+    "s_1c1bae75976b86": {
+      "agent_id": {
+        "tool": "kiro",
+        "id": "sess_05b27195-3e72-4312-9cda-42bd713f0f56",
+        "model": "auto"
+      },
+      "human_author": "Phil Lavin <phil.lavin@vonage.com>"
+    }
+  }
+}
