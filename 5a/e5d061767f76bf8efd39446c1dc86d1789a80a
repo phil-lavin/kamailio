@@ -1,0 +1,47 @@
+src/core/receive.c
+  s_984fdb4c33225c::t_c1d5d87ab8526c 664,688
+  s_984fdb4c33225c::t_14f587c04a3079 340
+  s_984fdb4c33225c::t_d1ab024c9082ec 341-343
+src/core/tcp_reactor.c
+  s_984fdb4c33225c::t_3df27a82ecdb29 55
+  s_984fdb4c33225c::t_be684b8cf4f300 1370
+  s_984fdb4c33225c::t_8cb3fecc63e9a1 1263
+  s_984fdb4c33225c::t_34dfe81f2ad01d 152
+src/core/udp_server.c
+  s_984fdb4c33225c::t_c15336a92e1f14 1737
+  s_984fdb4c33225c::t_218e83083fd8e2 1738,1740
+  s_984fdb4c33225c::t_e0f53620550a62 53
+src/core/worker_stats.h
+  s_984fdb4c33225c::t_a6b386a0a439c7 15-17,21
+  s_984fdb4c33225c::t_49394741a6245b 25-27
+  s_984fdb4c33225c::t_6b93af3164fad4 1-3
+  s_984fdb4c33225c::t_10f99c91fef7e5 4-14
+  s_984fdb4c33225c::t_b7c8212d0eba41 18-20
+  s_984fdb4c33225c::t_c71a4d1407ec36 22-24
+  s_984fdb4c33225c::t_66951a852373d8 28-30
+src/core/worker_stats.c
+  s_984fdb4c33225c::t_3d4329f226ab98 1-3
+  s_984fdb4c33225c::t_a719dfda0243e5 4-14
+  s_984fdb4c33225c::t_d90c7a854dc120 40-42
+  s_984fdb4c33225c::t_abd10bee770956 43-45
+  s_984fdb4c33225c::t_5bcbc9d04696b5 46-48
+  s_984fdb4c33225c::t_7e6dbcd4db7d42 38-39
+  s_984fdb4c33225c::t_046a65b9b326f6 15-37
+  s_984fdb4c33225c::t_8c345e6f556c23 49-51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5ae5d061767f76bf8efd39446c1dc86d1789a80a",
+  "prompts": {},
+  "sessions": {
+    "s_984fdb4c33225c": {
+      "agent_id": {
+        "tool": "kiro",
+        "id": "sess_3ad22ad9-d6bf-43cc-a0fb-af023e14204b",
+        "model": "auto"
+      },
+      "human_author": "Phil Lavin <phil.lavin@vonage.com>"
+    }
+  }
+}
